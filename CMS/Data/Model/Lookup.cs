@@ -5,11 +5,11 @@ namespace AMS.Data.Model
     public class Lookup
     {
         // Attributes
-        public Guid LookupMajorID { get; set; }
-        public Guid LookupMinorID { get; set; }
-        public Guid LookupMajorType { get; set; }
-        public Guid LookupMinorType { get; set; }
-        public Guid IsEditable { get; set; }
+        public int LookupMajorID { get; set; }
+        public int LookupMinorID { get; set; }
+        public int LookupMajorType { get; set; }
+        public int LookupMinorType { get; set; }
+        public bool IsEditable { get; set; }
 
         // Relations
     }

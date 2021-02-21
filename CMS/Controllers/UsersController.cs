@@ -8,11 +8,16 @@ using Microsoft.EntityFrameworkCore;
 using AMS.Data;
 using AMS.Data.Model;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AMS.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors("MyPolicy")]
+    [Authorize]
+
     public class UsersController : ControllerBase
     {
         private readonly AppDBContext _context;
@@ -31,9 +36,15 @@ namespace AMS.Controllers
             return  _context.Users.ToList();
         }
 
+        [HttpGet("byRole/{roleID}")]
+        public ActionResult<IEnumerable<User>> GetUsers(int roleID)
+        {
+           return _context.Users.Where(x=>x.RoleID == roleID).ToList();
+        }
+
         // GET: api/Users/5
         [HttpGet("{id}")]
-        public ActionResult<User> GetUser(Guid id)
+        public ActionResult<User> GetUser(int id)
         {
             var user =  _context.Users.Find(id);
 
@@ -49,7 +60,7 @@ namespace AMS.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public IActionResult PutUser(Guid id, User user)
+        public IActionResult PutUser(int id, User user)
         {
             if (id != user.UserID)
             {
@@ -91,21 +102,21 @@ namespace AMS.Controllers
 
         // DELETE: api/Users/5
         [HttpDelete("{id}")]
-        public ActionResult<User> DeleteUser(Guid id)
+        public ActionResult<User> DeleteUser(int id)
         {
             var user =  _context.Users.Find(id);
             if (user == null)
             {
                 return NotFound();
             }
-
-            _context.Users.Remove(user);
-             _context.SaveChanges();
+            user.IsActive = false;
+            _context.Entry(user).State = EntityState.Modified;
+            _context.SaveChanges();
 
             return user;
         }
 
-        private bool UserExists(Guid id)
+        private bool UserExists(int id)
         {
             return _context.Users.Any(e => e.UserID == id);
         }

@@ -9,10 +9,10 @@ namespace AMS.Business.Interfaces
     public interface IAppointment
     {
         IEnumerable<Appointment> GetAppointments();
-        Appointment GetAppointment(Guid id);
-        string PutAppointment(Guid id, Appointment appointment);
+        Appointment GetAppointment(int id);
+        string PutAppointment(int id, Appointment appointment);
         Appointment PostAppointment(Appointment appointment);
-        Appointment DeleteAppointment(Guid id);
-        bool AppointmentExists(Guid id);
+        Appointment DeleteAppointment(int id);
+        bool AppointmentExists(int id);
     }
 }

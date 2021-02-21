@@ -9,10 +9,10 @@ namespace AMS.Business.Interfaces
     public interface IBranch
     {
         IEnumerable<Branch> GetBranches();
-        Branch GetBranch(Guid id);
-        string PutBranch(Guid id, Branch branch);
+        Branch GetBranch(int id);
+        string PutBranch(int id, Branch branch);
         Branch PostBranch(Branch branch);
-        Branch DeleteBranch(Guid id);
-        bool BranchExists(Guid id);
+        Branch DeleteBranch(int id);
+        bool BranchExists(int id);
     }
 }

@@ -1,9 +1,9 @@
 ﻿using AMS.Business.Interfaces;
 using AMS.Data;
 using AMS.Data.Model;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -22,7 +22,7 @@ namespace AMS.Business.Repositories
             return _context.Branches.ToList();
         }
 
-        public Branch GetBranch(Guid id)
+        public Branch GetBranch(int id)
         {
             var branch = _context.Branches.Find(id);
 
@@ -34,7 +34,7 @@ namespace AMS.Business.Repositories
             return branch;
         }
 
-        public string PutBranch(Guid id, Branch branch)
+        public string PutBranch(int id, Branch branch)
         {
             if (id != branch.BranchID)
             {
@@ -71,7 +71,7 @@ namespace AMS.Business.Repositories
             return branch;
         }
 
-        public Branch DeleteBranch(Guid id)
+        public Branch DeleteBranch(int id)
         {
             var branch = _context.Branches.Find(id);
             if (branch == null)
@@ -85,7 +85,7 @@ namespace AMS.Business.Repositories
             return branch;
         }
 
-        public bool BranchExists(Guid id)
+        public bool BranchExists(int id)
         {
             return _context.Branches.Any(e => e.BranchID == id);
         }

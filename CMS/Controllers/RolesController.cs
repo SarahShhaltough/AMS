@@ -8,11 +8,16 @@ using Microsoft.EntityFrameworkCore;
 using AMS.Data;
 using AMS.Data.Model;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AMS.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors("MyPolicy")]
+    [Authorize]
+
     public class RolesController : ControllerBase
     {
         private readonly AppDBContext _context;
@@ -33,7 +38,7 @@ namespace AMS.Controllers
 
         // GET: api/Roles/5
         [HttpGet("{id}")]
-        public ActionResult<Role> GetRole(Guid id)
+        public ActionResult<Role> GetRole(int id)
         {
             var role =  _context.Roles.Find(id);
 
@@ -49,7 +54,7 @@ namespace AMS.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public IActionResult PutRole(Guid id, Role role)
+        public IActionResult PutRole(int id, Role role)
         {
             if (id != role.RoleID)
             {
@@ -91,7 +96,7 @@ namespace AMS.Controllers
 
         // DELETE: api/Roles/5
         [HttpDelete("{id}")]
-        public ActionResult<Role> DeleteRole(Guid id)
+        public ActionResult<Role> DeleteRole(int id)
         {
             var role =  _context.Roles.Find(id);
             if (role == null)
@@ -105,7 +110,7 @@ namespace AMS.Controllers
             return role;
         }
 
-        private bool RoleExists(Guid id)
+        private bool RoleExists(int id)
         {
             return _context.Roles.Any(e => e.RoleID == id);
         }

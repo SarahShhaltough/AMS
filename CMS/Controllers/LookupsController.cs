@@ -33,7 +33,7 @@ namespace AMS.Controllers
 
         // GET: api/Lookups/5
         [HttpGet("{id}")]
-        public ActionResult<Lookup> GetLookup(Guid id)
+        public ActionResult<Lookup> GetLookup(int id)
         {
             var lookup =  _context.Lookup.Find(id);
 
@@ -49,7 +49,7 @@ namespace AMS.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public IActionResult PutLookup(Guid id, Lookup lookup)
+        public IActionResult PutLookup(int id, Lookup lookup)
         {
             if (id != lookup.LookupMajorID)
             {
@@ -105,7 +105,7 @@ namespace AMS.Controllers
 
         // DELETE: api/Lookups/5
         [HttpDelete("{id}")]
-        public ActionResult<Lookup> DeleteLookup(Guid id)
+        public ActionResult<Lookup> DeleteLookup(int id)
         {
             var lookup =  _context.Lookup.Find(id);
             if (lookup == null)
@@ -119,7 +119,7 @@ namespace AMS.Controllers
             return lookup;
         }
 
-        private bool LookupExists(Guid id)
+        private bool LookupExists(int id)
         {
             return _context.Lookup.Any(e => e.LookupMajorID == id);
         }

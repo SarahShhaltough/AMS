@@ -11,31 +11,35 @@ namespace AMS.Data
         }
 
         // Tables
-        public DbSet<Company> Companies { get; set; }
+        //public DbSet<Company> Companies { get; set; }
         public DbSet<Branch> Branches { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
-        public DbSet<UserRole> UserRoles { get; set; }
-        public DbSet<UserAppointment> UserAppointments { get; set; }
+        public DbSet<Lookup> Lookup { get; set; }
+
+        //public DbSet<UserRole> UserRoles { get; set; }
+        //public DbSet<UserAppointment> UserAppointments { get; set; }
 
         // Relations
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Company>(entity =>
-            {
-                entity.HasKey(c => c.CompanyID);
-            });
+            //modelBuilder.Entity<Company>(entity =>
+            //{
+            //    entity.HasKey(c => c.CompanyID);
+            //});
 
             modelBuilder.Entity<Branch>(entity =>
             {
                 entity.HasKey(c => c.BranchID);
-                entity.HasOne(c => c.Company).WithMany(c => c.Branches);
+                //entity.HasOne(c => c.Company).WithMany(c => c.Branches);
             });
 
             modelBuilder.Entity<User>(entity =>
             {
                 entity.HasKey(c => c.UserID);
+                entity.HasOne(c => c.Role).WithMany(c => c.Users);
+
                 entity.HasOne(c => c.Branch).WithMany(c => c.Users);
             });
 
@@ -43,6 +47,7 @@ namespace AMS.Data
             {
                 entity.HasKey(c => c.AppointmentID);
                 entity.HasOne(c => c.Branch).WithMany(c => c.Appointments);
+                entity.HasOne(c => c.User).WithMany(c => c.Appointments);
             });
 
             modelBuilder.Entity<Role>(entity =>
@@ -50,20 +55,20 @@ namespace AMS.Data
                 entity.HasKey(c => c.RoleID);
             });
 
-            modelBuilder.Entity<UserRole>(entity =>
-            {
-                entity.HasKey(c => c.UserRoleID);
-                entity.HasOne(c => c.Role).WithMany(c => c.UserRoles);
-                entity.HasOne(c => c.User).WithMany(c => c.UserRoles);
-            });
+            //modelBuilder.Entity<UserRole>(entity =>
+            //{
+            //    entity.HasKey(c => c.UserRoleID);
+            //    entity.HasOne(c => c.Role).WithMany(c => c.UserRoles);
+            //    entity.HasOne(c => c.User).WithMany(c => c.UserRoles);
+            //});
 
-            modelBuilder.Entity<UserAppointment>(entity =>
-            {
-                entity.HasKey(c => c.UserAppointmentID);
-                entity.HasOne(c => c.Appointment).WithMany(c => c.UserAppointments);
-                entity.HasOne(c => c.User).WithMany(c => c.UserAppointments);
+            //modelBuilder.Entity<UserAppointment>(entity =>
+            //{
+            //    entity.HasKey(c => c.UserAppointmentID);
+            //    entity.HasOne(c => c.Appointment).WithMany(c => c.UserAppointments);
+            //    entity.HasOne(c => c.User).WithMany(c => c.UserAppointments);
 
-            });
+            //});
 
             modelBuilder.Entity<Lookup>(entity =>
             {
@@ -71,7 +76,5 @@ namespace AMS.Data
             });
         }
 
-        // Relations
-        public DbSet<AMS.Data.Model.Lookup> Lookup { get; set; }
     }
 }

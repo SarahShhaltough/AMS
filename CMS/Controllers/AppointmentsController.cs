@@ -9,11 +9,16 @@ using AMS.Data;
 using AMS.Data.Model;
 using Microsoft.Extensions.Logging;
 using AMS.Business.Interfaces;
+using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AMS.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors("MyPolicy")]
+    [Authorize]
+
     public class AppointmentsController : ControllerBase
     {
         private readonly ILogger<AppointmentsController> _logger;
@@ -35,7 +40,7 @@ namespace AMS.Controllers
 
         // GET: api/Appointments/5
         [HttpGet("{id}")]
-        public ActionResult<Appointment> GetAppointment(Guid id)
+        public ActionResult<Appointment> GetAppointment(int id)
         {
             var result = _appointment.GetAppointment(id);
             return result;
@@ -45,7 +50,7 @@ namespace AMS.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public  IActionResult PutAppointment(Guid id, Appointment appointment)
+        public  IActionResult PutAppointment(int id, Appointment appointment)
         {
             var result = _appointment.PutAppointment(id, appointment);
             if (result.Contains("successed"))
@@ -70,13 +75,13 @@ namespace AMS.Controllers
 
         // DELETE: api/Appointments/5
         [HttpDelete("{id}")]
-        public ActionResult<Appointment> DeleteAppointment(Guid id)
+        public ActionResult<Appointment> DeleteAppointment(int id)
         {
             var result = _appointment.DeleteAppointment(id);
             return result;
         }
 
-        private bool AppointmentExists(Guid id)
+        private bool AppointmentExists(int id)
         {
             var result = _appointment.AppointmentExists(id);
             return result;

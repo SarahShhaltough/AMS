@@ -9,11 +9,16 @@ using AMS.Data;
 using AMS.Data.Model;
 using Microsoft.Extensions.Logging;
 using AMS.Business.Interfaces;
+using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AMS.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors("MyPolicy")]
+    [Authorize]
+
     public class BranchesController : ControllerBase
     {
         private readonly ILogger<BranchesController> _logger;
@@ -35,7 +40,7 @@ namespace AMS.Controllers
 
         // GET: api/Branches/5
         [HttpGet("{id}")]
-        public ActionResult<Branch> GetBranch(Guid id)
+        public ActionResult<Branch> GetBranch(int id)
         {
             var result = _branch.GetBranch(id);
             return result;
@@ -45,7 +50,7 @@ namespace AMS.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public IActionResult PutBranch(Guid id, Branch branch)
+        public IActionResult PutBranch(int id, Branch branch)
         {
             var result = _branch.PutBranch(id, branch);
             if (result.Contains("successed"))
@@ -70,13 +75,13 @@ namespace AMS.Controllers
 
         // DELETE: api/Branches/5
         [HttpDelete("{id}")]
-        public ActionResult<Branch> DeleteBranch(Guid id)
+        public ActionResult<Branch> DeleteBranch(int id)
         {
             var result = _branch.DeleteBranch(id);
             return result;
         }
 
-        private bool BranchExists(Guid id)
+        private bool BranchExists(int id)
         {
             var result = _branch.BranchExists(id);
             return result;

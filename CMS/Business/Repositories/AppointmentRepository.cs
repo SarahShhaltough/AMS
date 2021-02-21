@@ -1,10 +1,9 @@
 ﻿using AMS.Business.Interfaces;
 using AMS.Data;
 using AMS.Data.Model;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -24,7 +23,7 @@ namespace AMS.Business.Repositories
             return _context.Appointments.ToList();
         }
 
-        public Appointment GetAppointment(Guid id)
+        public Appointment GetAppointment(int id)
         {
             var appointment = _context.Appointments.Find(id);
             if (appointment == null)
@@ -34,7 +33,7 @@ namespace AMS.Business.Repositories
             return appointment;
         }
 
-        public string PutAppointment(Guid id, Appointment appointment)
+        public string PutAppointment(int id, Appointment appointment)
         {
             if (id != appointment.AppointmentID)
             {
@@ -69,7 +68,7 @@ namespace AMS.Business.Repositories
             return appointment;
         }
 
-        public Appointment DeleteAppointment(Guid id)
+        public Appointment DeleteAppointment(int id)
         {
             var appointment = _context.Appointments.Find(id);
             if (appointment == null)
@@ -83,7 +82,7 @@ namespace AMS.Business.Repositories
             return appointment;
         }
 
-        public bool AppointmentExists(Guid id)
+        public bool AppointmentExists(int id)
         {
             return _context.Appointments.Any(e => e.AppointmentID == id);
         }

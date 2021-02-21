@@ -6,10 +6,11 @@ namespace AMS.Data.Model
     public class Role
     {
         // Attributes
-        public Guid RoleID { get; set; }
+        public int RoleID { get; set; }
         public string RoleName { get; set; }
+        public bool IsActive { get; set; }
     
         // Relations
-        public ICollection<UserRole> UserRoles { get; set; } 
+        public ICollection<User> Users { get; set; } 
     }
 }
