@@ -9,6 +9,8 @@ namespace AMS.Business.Interfaces
     public interface IAppointment
     {
         IEnumerable<Appointment> GetAppointments();
+        IEnumerable<Appointment> GetAllAppointments(int userId);
+
         Appointment GetAppointment(int id);
         string PutAppointment(int id, Appointment appointment);
         Appointment PostAppointment(Appointment appointment);

@@ -94,6 +94,8 @@ namespace AMS.Controllers
         [HttpPost]
         public ActionResult<User> PostUser(User user)
         {
+            user.BranchID = 1;
+            user.RoleID = 3;
             _context.Users.Add(user);
             _context.SaveChanges();
 

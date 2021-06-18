@@ -33,6 +33,16 @@ namespace AMS.Business.Repositories
             return appointment;
         }
 
+        public IEnumerable<Appointment> GetAllAppointments(int userId)
+        {
+            var appointment = _context.Appointments.Where(x=>x.UserID == userId).ToList();
+            if (appointment == null)
+            {
+                return null;
+            }
+            return appointment;
+        }
+
         public string PutAppointment(int id, Appointment appointment)
         {
             if (id != appointment.AppointmentID)
@@ -64,7 +74,6 @@ namespace AMS.Business.Repositories
         {
             _context.Appointments.Add(appointment);
             _context.SaveChanges();
-
             return appointment;
         }
 

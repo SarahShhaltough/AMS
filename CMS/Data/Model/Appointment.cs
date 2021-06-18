@@ -19,7 +19,7 @@ namespace AMS.Data.Model
         public string Notes { get; set; }
 
         // Relations
-        // public int BranchID { get; set; }
+        public int BranchID { get; set; }
         public Branch Branch { get; set; }
         public int UserID { get; set; }
         public User User { get; set; }

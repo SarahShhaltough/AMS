@@ -46,6 +46,14 @@ namespace AMS.Controllers
             return result;
         }
 
+        // GET: api/Appointments/5
+        [HttpGet("all/{userId}")]
+        public ActionResult<IEnumerable<Appointment>> GetAllAppointments(int userId)
+        {
+            var result = _appointment.GetAllAppointments(userId);
+            return Ok(result);
+        }
+
         // PUT: api/Appointments/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
