@@ -22,10 +22,11 @@ namespace AMS.Data.Model
         public string PastHistory { get; set; }
         public string FamilyHistory { get; set; }
         public bool IsActive { get; set; }
+        public DateTime DOB { get; set; }
 
         // Relations
-        public int BranchID { get; set; }
-        public Branch Branch { get; set; }
+        //public int BranchID { get; set; }
+        //public Branch Branch { get; set; }
         public ICollection<Appointment> Appointments { get; set; }
         public int RoleID { get; set; }
         public Role Role { get; set; }

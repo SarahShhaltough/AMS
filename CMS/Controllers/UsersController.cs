@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AMS.Data;
@@ -10,6 +7,7 @@ using AMS.Data.Model;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Authorization;
+using AMS.Data.DTO;
 
 namespace AMS.Controllers
 {
@@ -33,20 +31,20 @@ namespace AMS.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<User>> GetUsers()
         {
-            return  _context.Users.ToList();
+            return _context.Users.Where(x => x.IsActive == true).OrderBy(x => x.UserFullName).ToList();
         }
 
         [HttpGet("byRole/{roleID}")]
         public ActionResult<IEnumerable<User>> GetUsers(int roleID)
         {
-           return _context.Users.Where(x=>x.RoleID == roleID).ToList();
+            return _context.Users.Where(x => x.RoleID == roleID && x.IsActive == true).OrderBy(x => x.UserFullName).ToList();
         }
 
         // GET: api/Users/5
         [HttpGet("{id}")]
         public ActionResult<User> GetUser(int id)
         {
-            var user =  _context.Users.Find(id);
+            var user = _context.Users.Find(id);
 
             if (user == null)
             {
@@ -62,16 +60,11 @@ namespace AMS.Controllers
         [HttpPut("{id}")]
         public IActionResult PutUser(int id, User user)
         {
-            if (id != user.UserID)
-            {
-                return BadRequest();
-            }
-
             _context.Entry(user).State = EntityState.Modified;
 
             try
             {
-                 _context.SaveChanges();
+                _context.SaveChanges();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -94,8 +87,9 @@ namespace AMS.Controllers
         [HttpPost]
         public ActionResult<User> PostUser(User user)
         {
-            user.BranchID = 1;
+            //user.BranchID = 1;
             user.RoleID = 3;
+            user.IsActive = true;
             _context.Users.Add(user);
             _context.SaveChanges();
 
@@ -106,7 +100,7 @@ namespace AMS.Controllers
         [HttpDelete("{id}")]
         public ActionResult<User> DeleteUser(int id)
         {
-            var user =  _context.Users.Find(id);
+            var user = _context.Users.Find(id);
             if (user == null)
             {
                 return NotFound();
@@ -121,6 +115,22 @@ namespace AMS.Controllers
         private bool UserExists(int id)
         {
             return _context.Users.Any(e => e.UserID == id);
+        }
+
+        [HttpGet("note-data/{id}")]
+        public ActionResult<NoteDataDTO> GetPatientData(int id)
+        {
+            NoteDataDTO noteDataDTO = new NoteDataDTO();
+
+            var userData = _context.Users.Where(x => x.UserID == id).Select(x => new { x.Allergies, x.FamilyHistory, x.PastHistory, x.SpecialPrecautions }).FirstOrDefault();
+            var lastVisitNote = _context.Appointments.Where(x => x.UserID == id).ToList().LastOrDefault();
+            noteDataDTO.Allergies = userData.Allergies;
+            noteDataDTO.FamilyHistory = userData.FamilyHistory;
+            noteDataDTO.PastHistory = userData.PastHistory;
+            noteDataDTO.SpecialPrecautions = userData.SpecialPrecautions;
+            noteDataDTO.Notes = lastVisitNote == null ? null : lastVisitNote.Notes;
+            return noteDataDTO;
+
         }
     }
 }

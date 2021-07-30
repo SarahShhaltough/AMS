@@ -17,12 +17,16 @@ namespace AMS.Data.Model
         public string Plan { get; set; }
         public string Treatment { get; set; }
         public string Notes { get; set; }
+        public DateTime VisitDate { get; set; }
 
         // Relations
-        public int BranchID { get; set; }
-        public Branch Branch { get; set; }
+        //public int BranchID { get; set; }
+        //public Branch Branch { get; set; }
         public int UserID { get; set; }
         public User User { get; set; }
+        public bool IsDeleted { get; set; }
+        public DateTime appointmentDate { get; set; }
+
 
     }
 }

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AMS.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20210219195853_initMigration")]
-    partial class initMigration
+    [Migration("20210701223241_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -54,6 +54,9 @@ namespace AMS.Migrations
 
                     b.Property<int>("UserID")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("VisitDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("AppointmentID");
 
@@ -165,7 +168,7 @@ namespace AMS.Migrations
                     b.Property<string>("PastHistory")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("RoleID")
+                    b.Property<int>("RoleID")
                         .HasColumnType("int");
 
                     b.Property<string>("SpecialPrecautions")
@@ -197,7 +200,7 @@ namespace AMS.Migrations
 
             modelBuilder.Entity("AMS.Data.Model.Appointment", b =>
                 {
-                    b.HasOne("AMS.Data.Model.Branch", "Branch")
+                    b.HasOne("AMS.Data.Model.Branch", null)
                         .WithMany("Appointments")
                         .HasForeignKey("BranchID");
 
@@ -210,13 +213,15 @@ namespace AMS.Migrations
 
             modelBuilder.Entity("AMS.Data.Model.User", b =>
                 {
-                    b.HasOne("AMS.Data.Model.Branch", "Branch")
+                    b.HasOne("AMS.Data.Model.Branch", null)
                         .WithMany("Users")
                         .HasForeignKey("BranchID");
 
                     b.HasOne("AMS.Data.Model.Role", "Role")
                         .WithMany("Users")
-                        .HasForeignKey("RoleID");
+                        .HasForeignKey("RoleID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

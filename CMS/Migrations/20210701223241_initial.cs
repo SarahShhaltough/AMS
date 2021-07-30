@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AMS.Migrations
 {
-    public partial class initMigration : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -72,8 +73,8 @@ namespace AMS.Migrations
                     PastHistory = table.Column<string>(nullable: true),
                     FamilyHistory = table.Column<string>(nullable: true),
                     IsActive = table.Column<bool>(nullable: false),
-                    BranchID = table.Column<int>(nullable: true),
-                    RoleID = table.Column<int>(nullable: true)
+                    RoleID = table.Column<int>(nullable: false),
+                    BranchID = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -89,7 +90,7 @@ namespace AMS.Migrations
                         column: x => x.RoleID,
                         principalTable: "Roles",
                         principalColumn: "RoleID",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -105,8 +106,9 @@ namespace AMS.Migrations
                     Plan = table.Column<string>(nullable: true),
                     Treatment = table.Column<string>(nullable: true),
                     Notes = table.Column<string>(nullable: true),
-                    BranchID = table.Column<int>(nullable: true),
-                    UserID = table.Column<int>(nullable: false)
+                    VisitDate = table.Column<DateTime>(nullable: false),
+                    UserID = table.Column<int>(nullable: false),
+                    BranchID = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {

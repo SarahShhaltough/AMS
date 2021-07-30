@@ -9003,11 +9003,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Projects\\AMS_APIs\\AMS\\CMS\\AMS.csproj",
+      "projectUniqueName": "F:\\Projects\\AMS_APIs\\AMS\\CMS\\AMS.csproj",
       "projectName": "AMS",
-      "projectPath": "D:\\Projects\\AMS_APIs\\AMS\\CMS\\AMS.csproj",
+      "projectPath": "F:\\Projects\\AMS_APIs\\AMS\\CMS\\AMS.csproj",
       "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
-      "outputPath": "D:\\Projects\\AMS_APIs\\AMS\\CMS\\obj\\",
+      "outputPath": "F:\\Projects\\AMS_APIs\\AMS\\CMS\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\DELL\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -9022,6 +9022,7 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "projectReferences": {}
         }
       },
@@ -9033,6 +9034,7 @@
     },
     "frameworks": {
       "netcoreapp3.1": {
+        "targetAlias": "netcoreapp3.1",
         "dependencies": {
           "Microsoft.AspNetCore.Authentication.JwtBearer": {
             "target": "Package",
@@ -9095,7 +9097,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.301\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -40,10 +40,10 @@ namespace AMS.Data
             {
                 var users = new User[]
                    {
-                    new User { UserFullName = "Nart Wardam",  UserName = "NWardam" ,UserEmail = "adiga-s@hotmail.com", UserPassword = "123456", IsActive = true , BranchID = 1,RoleID = 1},
-                    new User { UserFullName = "Sarh Mohammad",  UserName = "SarahMohammad" , IsActive = true , BranchID = 1, RoleID = 2},
-                    new User { UserFullName = "Osama Alsoqi",  UserName = "OAlsoqi" , IsActive = true , BranchID = 1, RoleID = 2},
-                    new User { UserFullName = "Omar Ghalib",  UserName = "OGhalib" , IsActive = true , BranchID = 1, RoleID = 2},
+                    new User { UserFullName = "Nart Wardam",  UserName = "NWardam" ,UserEmail = "adiga-s@hotmail.com", UserPassword = "123456", IsActive = true, RoleID = 1},
+                    new User { UserFullName = "Sarh Mohammad",  UserName = "SarahMohammad" , IsActive = true, RoleID = 2},
+                    new User { UserFullName = "Osama Alsoqi",  UserName = "OAlsoqi" , IsActive = true, RoleID = 2},
+                    new User { UserFullName = "Omar Ghalib",  UserName = "OGhalib" , IsActive = true, RoleID = 2},
                    };
                 context.Users.AddRange(users);
                 context.SaveChanges();

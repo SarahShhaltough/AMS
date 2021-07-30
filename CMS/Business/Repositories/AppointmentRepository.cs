@@ -20,7 +20,7 @@ namespace AMS.Business.Repositories
 
         public IEnumerable<Appointment> GetAppointments()
         {
-            return _context.Appointments.ToList();
+            return _context.Appointments.Where(x=> x.IsDeleted != true).OrderByDescending(x=>x.VisitDate).ToList();
         }
 
         public Appointment GetAppointment(int id)
@@ -35,7 +35,7 @@ namespace AMS.Business.Repositories
 
         public IEnumerable<Appointment> GetAllAppointments(int userId)
         {
-            var appointment = _context.Appointments.Where(x=>x.UserID == userId).ToList();
+            var appointment = _context.Appointments.Where(x=>x.UserID == userId && x.IsDeleted != true).OrderByDescending(x => x.VisitDate).ToList();
             if (appointment == null)
             {
                 return null;
@@ -72,6 +72,8 @@ namespace AMS.Business.Repositories
 
         public Appointment PostAppointment(Appointment appointment)
         {
+            appointment.VisitDate = DateTime.Now;
+            appointment.appointmentDate = DateTime.Now;
             _context.Appointments.Add(appointment);
             _context.SaveChanges();
             return appointment;
@@ -85,7 +87,9 @@ namespace AMS.Business.Repositories
                 return null;
             }
 
-            _context.Appointments.Remove(appointment);
+            //_context.Appointments.Remove(appointment);
+            appointment.IsDeleted = true;
+            _context.Entry(appointment).State = EntityState.Modified;
             _context.SaveChanges();
 
             return appointment;

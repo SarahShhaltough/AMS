@@ -40,13 +40,13 @@ namespace AMS.Data
                 entity.HasKey(c => c.UserID);
                 entity.HasOne(c => c.Role).WithMany(c => c.Users);
 
-                entity.HasOne(c => c.Branch).WithMany(c => c.Users);
+                //entity.HasOne(c => c.Branch).WithMany(c => c.Users);
             });
 
             modelBuilder.Entity<Appointment>(entity =>
             {
                 entity.HasKey(c => c.AppointmentID);
-                entity.HasOne(c => c.Branch).WithMany(c => c.Appointments);
+                //entity.HasOne(c => c.Branch).WithMany(c => c.Appointments);
                 entity.HasOne(c => c.User).WithMany(c => c.Appointments);
             });
 

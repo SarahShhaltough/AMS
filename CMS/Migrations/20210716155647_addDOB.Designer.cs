@@ -4,14 +4,16 @@ using AMS.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AMS.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    partial class AppDBContextModelSnapshot : ModelSnapshot
+    [Migration("20210716155647_addDOB")]
+    partial class addDOB
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -41,9 +43,6 @@ namespace AMS.Migrations
                     b.Property<string>("Investigations")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Notes")
                         .HasColumnType("nvarchar(max)");
 
@@ -57,9 +56,6 @@ namespace AMS.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime>("VisitDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("appointmentDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("AppointmentID");
